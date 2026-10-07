@@ -15,6 +15,7 @@ const RESULT_CODES = {
     FILE_ERROR: 4,
 }
 
+
 async function readSensorById(sensorId) {
     try {
         if (typeof sensorId !== 'string' || sensorId.trim() === '') {

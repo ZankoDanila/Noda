@@ -92,8 +92,6 @@ async function main() {
 
     console.log(`Всего загружено отзывов: ${reviews.length}`)
 
-    // Берем часть большого набора для CPU-нагрузки.
-    // Сам большой файл при этом остается для эксперимента Streams.
     const calculationReviews = reviews.slice(0, 5000)
 
     console.log(

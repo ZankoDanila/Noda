@@ -11,6 +11,12 @@ const {
     removeSensorFromIndex,
 } = require('../fs/indexRepository')
 
+const {
+    backupSensorById,
+    backupDataDirectory,
+    renameSensorById,
+    rebackupSensorById,
+} = require('../fs/backup')
 
 async function createCommand(sensorId, title) {
     if (!sensorId || !title) {
@@ -100,11 +106,39 @@ async function deleteCommand(sensorId) {
     }
 }
 
+async function rebackupCommand(sensorId) {
+    if (!sensorId) {
+        return {
+            statusCode: 1,
+            message: 'Ошибка: необходимо указать ID датчика.',
+        }
+    }
+
+    return await rebackupSensorById(sensorId)
+}
 
 async function listCommand() {
     return await readIndex()
 }
 
+async function backupAllCommand() {
+    return await backupDataDirectory()
+}
+
+
+async function renameCommand(sensorId, newSensorId) {
+    if (!sensorId || !newSensorId) {
+        return {
+            statusCode: 1,
+            message: 'Ошибка: для переименования нужны текущий и новый ID.',
+        }
+    }
+
+    return await renameSensorById(
+        sensorId,
+        newSensorId
+    )
+}
 
 module.exports = {
     createCommand,
@@ -112,4 +146,8 @@ module.exports = {
     updateCommand,
     deleteCommand,
     listCommand,
+    rebackupCommand,
+    backupAllCommand,
+    renameCommand,
 }
+
